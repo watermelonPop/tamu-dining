@@ -8,10 +8,14 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /users/1
   def show
-    @user = User.find(params[:uin])
-    render json: @user
+    @user = User.find_by(uin: params[:uin])
+  
+    if @user.nil?
+      render json: { error: "User not found", params: params }, status: :not_found
+    else
+      render json: @user
+    end
   end
 
   # POST /users
@@ -44,7 +48,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:uin])
+      @user = User.find_by(uin: params[:uin])
+  
+      if @user.nil?
+        render json: { error: "User not found" }, status: :not_found
+      end
     end
 
     # Only allow a list of trusted parameters through.
