@@ -45,6 +45,13 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'cucumber-rails', require: false
+end
+
 group :production do
   gem 'pg' # for Heroku deployment
 end
