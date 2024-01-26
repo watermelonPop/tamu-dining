@@ -16,15 +16,15 @@ Background: users in database
   | Shakira      | Shakira   | 643971828 | shakira@tamu.edu    | 44      |
 
 Scenario: Fetch all users
-    When I go to the users path
-    Then I should see a user called Al Gorithm
-    And I should see a user called Shrimpfried Rice
-    And I should see a user called Lemon Jello
-    And I should see a user called Renee Rapp
-    And I should see a user called Shakira Shakira
+    When I go to the 'users' path
+    Then I should see a user called 'Al' 'Gorithm'
+    And I should see a user called 'Shrimpfried' 'Rice'
+    And I should see a user called 'Lemon' 'Jello'
+    And I should see a user called 'Renee' 'Rapp'
+    And I should see a user called 'Shakira' 'Shakira'
 
 Scenario: Fetch one user
-    When I go to the user page for uin 361543783
-    Then I should see a user called Renee Rapp
-    And I should see the email rr@tamu.edu
-    And I should see 48 credits
+    When I go to the user page for uin '361543783'
+    Then I should see a user called 'Renee' 'Rapp'
+    And I should see the 'email' 'rr@tamu.edu'
+    And I should see the 'credits' '24'
