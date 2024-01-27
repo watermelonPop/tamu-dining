@@ -45,6 +45,17 @@ class UsersController < ApplicationController
     @user.destroy!
   end
 
+  def update_credits
+    user = User.find_by(uin: params[:uin])
+    credits = params[:credits].to_i
+    if user
+      user.update(credits: user.credits + credits)
+      render json: { message: "Credits updated successfully" }
+    else
+      render json: { error: "User not found" }, status: :not_found
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
