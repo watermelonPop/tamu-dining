@@ -45,6 +45,34 @@ class UsersController < ApplicationController
     @user.destroy!
   end
 
+  # Increase number of credits
+  def increase_credits
+    @user = User.find_by(uin: params[:uin])
+    credits = params[:credits]
+
+    # checks for invalid number of credits
+    if credits < 0
+      render json: {status: 'error', message: 'invalid number of credits', uin: @user.uin, credits: @user.credits}
+    end
+
+    @user.credits += credits
+    render json: {status: 'success', message: 'increase user credits', uin: @user.uin, credits: @user.credits}
+  end
+
+  # Decrease number of credits
+  def decrease_credits
+    @user = User.find_by(uin: params[:uin])
+    credits = params[:credits]
+
+    # checks for invalid number of credits
+    if credits < 0 or credits < @user.credits
+      render json: {status: 'error', message: 'invalid number of credits', uin: @user.uin, credits: @user.credits}
+    end
+    
+    @user.credits -= params[:credits]
+    render json: {status: 'success', message: 'decreased user credits', uin: @user.uin, credits: @user.credits}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

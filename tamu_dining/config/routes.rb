@@ -7,5 +7,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :users, param: :uin, only: [:index, :show, :create, :update, :destroy]
+  resources :users, param: :uin, only: [:index, :show, :create, :update, :destroy] do
+    member do
+      post "increase_credits"
+      post "decrease_credits"
+    end
+  end
 end
