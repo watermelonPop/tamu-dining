@@ -48,15 +48,24 @@ class UsersController < ApplicationController
   # Increase number of credits
   def increase_credits
     @user = User.find_by(uin: params[:uin])
-    credits = params[:credits]
+    credits = params[:credits].to_i
+
+    # checks to make sure there is a user for that uin
+    if @user.nil?
+      return render json: {status: 'error', message: 'user with uin not found'}, status: :not_found
+    end
 
     # checks for invalid number of credits
     if credits < 0
-      render json: {status: 'error', message: 'invalid number of credits', uin: @user.uin, credits: @user.credits}
+      return render json: {status: 'error', message: 'invalid number of credits', uin: @user.uin, credits: @user.credits}, status: :bad_request
     end
 
     @user.credits += credits
-    render json: {status: 'success', message: 'increase user credits', uin: @user.uin, credits: @user.credits}
+    if @user.save
+      return render json: {status: 'success', message: 'increased user credits', uin: @user.uin, credits: @user.credits}
+    else
+      return render json: {status: 'error', message: 'failed to save changes'}, status: :internal_server_error
+    end
   end
 
   # Decrease number of credits
