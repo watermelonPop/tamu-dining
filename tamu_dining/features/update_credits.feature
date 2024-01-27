@@ -11,20 +11,29 @@ Background: users in database
   | first_name   | last_name | uin       | email               | credits |
   | Al           | Gorithm   | 879861986 | al_gorithm@tamu.edu | 48      |
   | Shrimpfried  | Rice      | 973415535 | shrimprice@tamu.edu | 32      |
-  | Lemon        | Jello     | 463525785 | lemonj@tamu.edu     | 2       |
+  | Lemon        | Jello     | 463525785 | lemonj@tamu.edu     | 4       |
 
 Scenario: Adding credits to user
-  Given that I'm editing uin "973415535"
-  And I "increase" credits by 10
-  Then I should have 42 credits
+  Given that I "increase" user "973415535" credits by 10
+  Then I should see 'status' 'success'
+  And I should see the 'credits' '42'
 
 Scenario: Removing credits from user
-  Given that I'm editing uin "973415535"
-  And I "decrease" credits by 10
-  Then I should have 22 credits
+  Given that I "decrease" user "973415535" credits by 10
+  Then I should see 'status' 'success'
+  And I should see the 'credits' '22'
 
 Scenario: Removing more credits than available from user
-  Given that I'm editing uin "463525785"
-  And I "decrease" credits by 10
-  Then I should get a "error" message
-  And I should have 2 credits
+  Given that I "decrease" user "463525785" credits by 10
+  Then I should see 'status' 'error'
+  And I should see the 'credits' '4'
+
+Scenario: Adding negative credits from user
+  Given that I "increase" user "973415535" credits by 10
+  Then I should see 'status' 'error'
+  And I should see the 'credits' '32'
+
+Scenario: Removing negative credits from user
+  Given that I "decrease" user "973415535" credits by 10
+  Then I should see 'status' 'error'
+  And I should see the 'credits' '32'
