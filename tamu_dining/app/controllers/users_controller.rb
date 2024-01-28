@@ -52,19 +52,21 @@ class UsersController < ApplicationController
 
     # checks to make sure there is a user for that uin
     if @user.nil?
-      return render json: {status: 'error', message: 'user with uin not found'}, status: :not_found
+      render json: {status: 'error', message: 'user with uin not found'}, status: :not_found
+      return
     end
 
     # checks for invalid number of credits
     if credits < 0
-      return render json: {status: 'error', message: 'invalid number of credits', uin: @user.uin, credits: @user.credits}, status: :bad_request
+      render json: {status: 'error', message: 'invalid number of credits'}, status: :bad_request
+      return
     end
 
     @user.credits += credits
     if @user.save
-      return render json: {status: 'success', message: 'increased user credits', uin: @user.uin, credits: @user.credits}
+      render json: {status: 'success', message: 'increased user credits', uin: @user.uin, credits: @user.credits}
     else
-      return render json: {status: 'error', message: 'failed to save changes'}, status: :internal_server_error
+      render json: {status: 'error', message: 'failed to save changes'}, status: :internal_server_error
     end
   end
 
