@@ -50,6 +50,7 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'cucumber-rails', require: false
+  gem 'simplecov', require: false
 end
 
 group :production do
