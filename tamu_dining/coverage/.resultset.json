@@ -104,12 +104,13 @@
         ]
       }
     },
-    "timestamp": 1708453674
+    "timestamp": 1708639698
   },
   "Cucumber Features": {
     "coverage": {
       "/home/ubuntu/tamu-dining/tamu_dining/app/models/user.rb": {
         "lines": [
+          1,
           1,
           null
         ]
@@ -210,6 +211,6 @@
         ]
       }
     },
-    "timestamp": 1708452940
+    "timestamp": 1708639712
   }
 }
