@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    @user = User.find(params[:uin])
+    @user = User.find_by(uin: params[:uin])
     if @user.update(user_params)
       render json: @user
     else

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users, param: :uin, only: [:index, :show, :create, :update, :destroy] do
     member do
       patch "update_credits/:credits", action: :update_credits, as: :update_credits
+      #patch "users/:uid", action :update, as :patch_user
     end
   end
 end
