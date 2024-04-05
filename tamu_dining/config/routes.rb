@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :administrators, constraints: { email: /[^\/]+/ }, param: :email, only: [:index, :show, :create, :destroy] do
+    get "validate_admin", action: :validate_admin, as: :validate_admin
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
